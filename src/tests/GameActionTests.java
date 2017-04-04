@@ -32,7 +32,12 @@ public class GameActionTests {
 		// Board is singleton, get the only instance and initialize it
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ICJK_ClueLayout.csv", "ICJK_Legend.txt", "TDNFTP_players.txt");
+		board.setConfigFiles(
+				"ICJK_ClueLayout.csv",
+				"ICJK_Legend.txt",
+				"TDNFTP_players.txt",
+				"TDDF_weapons.txt",
+				"TDDF_people.txt");
 
 		// Loads the board with a fake random deck
 		board.reset();
@@ -128,10 +133,10 @@ public class GameActionTests {
 	@Test
 	public void testCheckAccusation() {
 		// Set possible solutions
-		Solution trueSoln = new Solution("Mr. Bob", "Pantry", "Bat");
-		Solution failSoln1 = new Solution("Mr. Ryan", "Pantry", "Bat");
-		Solution failSoln2 = new Solution("Mr. Bob", "Master Bedroom", "Bat");
-		Solution failSoln3 = new Solution("Mr. Bob", "Pantry", "Gun");
+		Solution trueSoln = new Solution("Mrs. Kellie", "Music room", "Bat");
+		Solution failSoln1 = new Solution("Mr. Ryan", "Music room", "Bat");
+		Solution failSoln2 = new Solution("Mrs. Kellie", "Master Bedroom", "Bat");
+		Solution failSoln3 = new Solution("Mrs. Kellie", "Music room", "Gun");
 
 		// Test the true solution
 		assertTrue(board.checkAccusation(trueSoln));

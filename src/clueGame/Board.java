@@ -3,6 +3,9 @@ package clueGame;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,9 +20,11 @@ public class Board {
 	// variable used for singleton pattern
 	private static Board theInstance;
 	// ctor is private to ensure only one can be created
-	private String layoutLocation;
+	private String layoutLocation; // TODO: rename these 3 vars
 	private String legendLocation;
 	private String playerLocation;
+	private String weaponConfigFile;
+	private String peopleConfigFile;
 	private final int MAX_BOAR_SIZE = 50;
 	private BoardCell[][] grid;
 	private int numRows, numCols;
@@ -39,10 +44,16 @@ public class Board {
 		return theInstance;
 	}
 
-	public void setConfigFiles(String layoutLoc, String legendLoc, String playerLoc) {
+	public void setConfigFiles(String layoutLoc, String legendLoc, String playerLoc, String weaponConfigFile, String peopleConfigFile) {
 		this.layoutLocation = layoutLoc;
 		this.legendLocation = legendLoc;
 		this.playerLocation = playerLoc;
+		this.weaponConfigFile = weaponConfigFile;
+		this.peopleConfigFile = peopleConfigFile;
+	}
+	
+	public void setConfigFiles(String layoutLoc, String legendLoc, String playerLoc) {
+		this.setConfigFiles(layoutLoc, legendLoc, playerLoc, "", "");
 	}
 
 	public void initialize() {
@@ -66,9 +77,9 @@ public class Board {
 			e.printStackTrace();
 		}
 
-		loadDeck();
+		//loadDeck();
 
-		dealDeck(new Random());
+		//dealDeck(new Random());
 
 		calcAdjacencies();
 	}
@@ -90,19 +101,19 @@ public class Board {
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.WEAPON);
 		Card weapon = randomCard;
 		randomCard.isSolution();
-		
+
 		do {
 			randomCard = deck.get(rand.nextInt(deck.size()));
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.ROOM);
 		Card room = randomCard;
 		randomCard.isSolution();
-		
+
 		do {
 			randomCard = deck.get(rand.nextInt(deck.size()));
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.PERSON);
 		Card person = randomCard;
 		randomCard.isSolution();
-		
+
 		answer = new Solution(person, room, weapon);
 
 		for (Player player : players) {
@@ -116,15 +127,9 @@ public class Board {
 	}
 
 	public void loadDeck() {
-		// Create weapon cards
-		// TODO: Change to read from file
-		deck.add(new Card(CardType.WEAPON, "Bat"));
-		deck.add(new Card(CardType.WEAPON, "Gun"));
-		deck.add(new Card(CardType.WEAPON, "Knife"));
-		deck.add(new Card(CardType.WEAPON, "Screwdriver"));
-		deck.add(new Card(CardType.WEAPON, "Hammer"));
-		deck.add(new Card(CardType.WEAPON, "Katana"));
-
+		if (!weaponConfigFile.isEmpty()) loadWeaponConfig();
+		if (!peopleConfigFile.isEmpty()) loadPeopleConfig();
+		
 		// Create room cards
 		for (String room : legendMap.values()) {
 			// TODO: this could be done better considering that the legend file
@@ -133,15 +138,6 @@ public class Board {
 				deck.add(new Card(CardType.ROOM, room));
 			}
 		}
-
-		// Create people cards
-		// TODO: Change to read from file
-		deck.add(new Card(CardType.PERSON, "Mr. Bob"));
-		deck.add(new Card(CardType.PERSON, "Mrs. Kellie"));
-		deck.add(new Card(CardType.PERSON, "Mr. Ryan"));
-		deck.add(new Card(CardType.PERSON, "Mrs. Coolio"));
-		deck.add(new Card(CardType.PERSON, "Mr. Platoon"));
-		deck.add(new Card(CardType.PERSON, "Mrs. Kitten"));
 	}
 
 	public void calcAdjacencies() {
@@ -341,7 +337,7 @@ public class Board {
 			if (!didVisit) {
 				if (pathLength < 2 || option.isDoorway()) {
 					targets.add(option); // add if it number of steps has been
-											// met.
+					// met.
 				} else {
 					// keep going along path if still have more steps
 					visited.add(currentCell);
@@ -385,6 +381,28 @@ public class Board {
 		in.close();
 	}
 
+	public void loadWeaponConfig() {
+		try {
+			List<String> weaponsList = Files.readAllLines(Paths.get(this.weaponConfigFile));
+			for (String s : weaponsList) {
+				deck.add(new Card(CardType.WEAPON, s));
+			}
+		} catch (IOException e) {
+			System.out.println("There is no weapon config file by that name");
+		}
+	}
+
+	public void loadPeopleConfig() {
+		try {
+			List<String> peopleList = Files.readAllLines(Paths.get(this.peopleConfigFile));
+			for (String s : peopleList) {
+				deck.add(new Card(CardType.PERSON, s));
+			}
+		} catch (IOException e) {
+			System.out.println("There is no people config file by that name.");
+		}
+	}
+
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -399,17 +417,17 @@ public class Board {
 
 	public Card handleSuggestion(Solution suggestion, Player accuser) {
 		int pos = players.indexOf(accuser) + 1;
-		if(pos >= players.size()){
+		if (pos >= players.size()) {
 			pos = 0;
 		}
-		while(pos != players.indexOf(accuser)){
+		while (pos != players.indexOf(accuser)) {
 			Card c = players.get(pos).disproveSuggestion(suggestion);
-			if(c != null){
+			if (c != null) {
 				return c;
 			}
-			
+
 			pos++;
-			if(pos >= players.size()){
+			if (pos >= players.size()) {
 				pos = 0;
 			}
 		}
@@ -419,9 +437,10 @@ public class Board {
 	public Solution getAnswer() {
 		return answer;
 	}
-	
+
 	/**
 	 * For testing purposes.
+	 * 
 	 * @param soln
 	 */
 	public void setAnswer(Solution soln) {

@@ -27,7 +27,12 @@ public class ICJK_BoardTests {
 
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("ICJK_ClueLayout.csv", "ICJK_legend.txt", "TDNFTP_players.txt");
+		board.setConfigFiles(
+				"ICJK_ClueLayout.csv",
+				"ICJK_Legend.txt",
+				"TDNFTP_players.txt",
+				"TDDF_weapons.txt",
+				"TDDF_people.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
 	}

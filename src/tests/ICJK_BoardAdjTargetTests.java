@@ -27,7 +27,12 @@ public class ICJK_BoardAdjTargetTests {
 			// Board is singleton, get the only instance and initialize it
 			board = Board.getInstance();
 			// set the file names to use my config files
-			board.setConfigFiles("ICJK_ClueLayout.csv", "ICJK_Legend.txt", "TDNFTP_players.txt");
+			board.setConfigFiles(
+					"ICJK_ClueLayout.csv",
+					"ICJK_Legend.txt",
+					"TDNFTP_players.txt",
+					"TDDF_weapons.txt",
+					"TDDF_people.txt");
 			board.initialize();
 		}
 
