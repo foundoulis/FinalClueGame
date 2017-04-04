@@ -77,10 +77,8 @@ public class Board {
 			e.printStackTrace();
 		}
 
-		//loadDeck();
-
-		//dealDeck(new Random());
-
+		loadDeck();
+		dealDeck(new Random());
 		calcAdjacencies();
 	}
 
@@ -94,20 +92,23 @@ public class Board {
 
 	public void dealDeck(Random rand) {
 		final int cardsPerPlayer = (deck.size() - 3) / players.size();
-
 		Card randomCard;
+		
+		// Get weapon card
 		do {
 			randomCard = deck.get(rand.nextInt(deck.size()));
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.WEAPON);
 		Card weapon = randomCard;
 		randomCard.isSolution();
 
+		// Get room card
 		do {
 			randomCard = deck.get(rand.nextInt(deck.size()));
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.ROOM);
 		Card room = randomCard;
 		randomCard.isSolution();
 
+		// Get person card
 		do {
 			randomCard = deck.get(rand.nextInt(deck.size()));
 		} while (randomCard.hasBeenDealt() || randomCard.getType() != CardType.PERSON);

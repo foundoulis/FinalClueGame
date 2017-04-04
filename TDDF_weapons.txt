@@ -1,0 +1,6 @@
+Bat
+Gun
+Knife
+Screwdriver
+Hammer
+Katana
