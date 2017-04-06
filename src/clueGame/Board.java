@@ -141,8 +141,8 @@ public class Board {
 	}
 
 	public void loadDeck() {
-		if (!weaponConfigFile.isEmpty()) loadWeaponConfig();
-		if (!peopleConfigFile.isEmpty()) loadPeopleConfig();
+		loadWeaponConfig();
+		loadPeopleConfig();
 		
 		// Create room cards
 		for (String room : legendMap.values()) {

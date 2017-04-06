@@ -1,4 +1,4 @@
-package clueGame;
+package swinggui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
