@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -93,6 +94,8 @@ public class ControlGUI extends JPanel {
 		
 		ControlGUI gui = new ControlGUI();
 		frame.add(gui, BorderLayout.CENTER);
+
+		JOptionPane.showMessageDialog(frame, "You are person, press Next Player to begin play");
 		
 		frame.setVisible(true);
 	}
