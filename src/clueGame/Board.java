@@ -28,7 +28,7 @@ public class Board {
 	// variable used for singleton pattern
 	private static Board theInstance;
 	// ctor is private to ensure only one can be created
-	private String boardConfigFile; // TODO: rename these 3 vars
+	private String boardConfigFile;
 	private String legenConfigFile;
 	private String playersConfigFile;
 	private String weaponConfigFile;
@@ -61,7 +61,12 @@ public class Board {
 	}
 	
 	public void setConfigFiles(String layoutLoc, String legendLoc, String playerLoc) {
-		this.setConfigFiles(layoutLoc, legendLoc, playerLoc, "", "");
+		this.setConfigFiles(layoutLoc, legendLoc, playerLoc, "TDDF_weapons.txt", "TDDF_people.txt");
+		/*
+		 * The above function is set so that the tests that predate the addition of weapons and people are loaded, these are default values
+		 * This is not problematic as when the real function is called there is not an absence of those files. Ie, they must be present 
+		 * for the game to even work.
+		 */
 	}
 
 	public void initialize() {
