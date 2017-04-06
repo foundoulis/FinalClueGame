@@ -41,6 +41,7 @@ public class Board {
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	private List<Player> players;
+	private HumanPlayer humanPlayer;
 	private List<Card> deck;
 	private Solution answer;
 
@@ -386,7 +387,8 @@ public class Board {
 				break;
 			}
 			if (split[0].equals("Human")) {
-				players.add(new HumanPlayer(split[1], color, Integer.parseInt(split[3]), Integer.parseInt(split[4])));
+				humanPlayer = new HumanPlayer(split[1], color, Integer.parseInt(split[3]), Integer.parseInt(split[4]));
+				players.add(humanPlayer);
 			} else {
 				players.add(
 						new ComputerPlayer(split[1], color, Integer.parseInt(split[3]), Integer.parseInt(split[4])));
@@ -459,5 +461,9 @@ public class Board {
 	 */
 	public void setAnswer(Solution soln) {
 		answer = soln;
+	}
+	
+	public HumanPlayer getHumanPlayer() {
+		return humanPlayer;
 	}
 }

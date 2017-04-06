@@ -13,6 +13,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.Board;
+import player.HumanPlayer;
+
 @SuppressWarnings("serial")
 public class ControlGUI extends JPanel {
 
@@ -94,8 +97,19 @@ public class ControlGUI extends JPanel {
 		
 		ControlGUI gui = new ControlGUI();
 		frame.add(gui, BorderLayout.CENTER);
+		
+		// Set up board
+		Board board = Board.getInstance();
+		board.setConfigFiles(
+				"ICJK_ClueLayout.csv",
+				"ICJK_Legend.txt",
+				"TDNFTP_players.txt",
+				"TDDF_weapons.txt",
+				"TDDF_people.txt");
+		board.initialize();
+		HumanPlayer player = board.getHumanPlayer();
 
-		JOptionPane.showMessageDialog(frame, "You are person, press Next Player to begin play");
+		JOptionPane.showMessageDialog(frame, "You are " + player.getName() + ", press Next Player to begin play");
 		
 		frame.setVisible(true);
 	}
