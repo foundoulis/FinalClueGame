@@ -28,9 +28,9 @@ public class Board {
 	// variable used for singleton pattern
 	private static Board theInstance;
 	// ctor is private to ensure only one can be created
-	private String layoutLocation; // TODO: rename these 3 vars
-	private String legendLocation;
-	private String playerLocation;
+	private String boardConfigFile; // TODO: rename these 3 vars
+	private String legenConfigFile;
+	private String playersConfigFile;
 	private String weaponConfigFile;
 	private String peopleConfigFile;
 	private final int MAX_BOAR_SIZE = 50;
@@ -53,9 +53,9 @@ public class Board {
 	}
 
 	public void setConfigFiles(String layoutLoc, String legendLoc, String playerLoc, String weaponConfigFile, String peopleConfigFile) {
-		this.layoutLocation = layoutLoc;
-		this.legendLocation = legendLoc;
-		this.playerLocation = playerLoc;
+		this.boardConfigFile = layoutLoc;
+		this.legenConfigFile = legendLoc;
+		this.playersConfigFile = playerLoc;
 		this.weaponConfigFile = weaponConfigFile;
 		this.peopleConfigFile = peopleConfigFile;
 	}
@@ -224,7 +224,7 @@ public class Board {
 		// Create Legend
 		FileReader reader = null;
 		try {
-			reader = new FileReader(legendLocation);
+			reader = new FileReader(legenConfigFile);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -249,7 +249,7 @@ public class Board {
 		int numColsPast = -1;
 		FileReader reader = null;
 		try {
-			reader = new FileReader(layoutLocation);
+			reader = new FileReader(boardConfigFile);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -364,7 +364,7 @@ public class Board {
 	}
 
 	public void loadPlayerConfig() throws FileNotFoundException {
-		FileReader reader = new FileReader(playerLocation);
+		FileReader reader = new FileReader(playersConfigFile);
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
 			String[] split = in.nextLine().split(",");
