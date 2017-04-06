@@ -1,9 +1,13 @@
-package clueGame;
+package player;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import clueGame.Solution;
+
+import card.Card;
 
 public class HumanPlayer extends Player {
     public HumanPlayer(String name, Color color, int row, int col) {

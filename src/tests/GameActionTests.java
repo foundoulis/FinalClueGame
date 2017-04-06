@@ -13,14 +13,15 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.BadConfigFormatException;
+import player.ComputerPlayer;
+import player.Player;
+
+import card.Card;
+import card.CardType;
 import clueGame.Board;
 import clueGame.BoardCell;
-import clueGame.Card;
-import clueGame.CardType;
-import clueGame.ComputerPlayer;
-import clueGame.Player;
 import clueGame.Solution;
+import exceptions.BadConfigFormatException;
 
 public class GameActionTests {
 

@@ -15,6 +15,14 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import player.ComputerPlayer;
+import player.HumanPlayer;
+import player.Player;
+
+import card.Card;
+import card.CardType;
+import exceptions.BadConfigFormatException;
+
 public class Board {
 
 	// variable used for singleton pattern

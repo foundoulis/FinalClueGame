@@ -1,4 +1,6 @@
-package clueGame;
+package card;
+
+import player.Player;
 
 public class Card {
 	private String name;

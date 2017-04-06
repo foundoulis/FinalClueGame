@@ -1,4 +1,4 @@
-package clueGame;
+package exceptions;
 
 @SuppressWarnings("serial")
 public class BadConfigFormatException extends Exception {

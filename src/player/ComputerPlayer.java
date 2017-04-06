@@ -1,4 +1,4 @@
-package clueGame;
+package player;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+
+import clueGame.Board;
+import clueGame.BoardCell;
+import clueGame.Solution;
+
+import card.Card;
+import card.CardType;
 
 public class ComputerPlayer extends Player {
 	private BoardCell lastRoom;

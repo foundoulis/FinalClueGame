@@ -1,5 +1,7 @@
 package clueGame;
 
+import card.Card;
+
 public class Solution {
 	private String person;
 	private String room;

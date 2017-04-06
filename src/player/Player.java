@@ -1,9 +1,13 @@
-package clueGame;
+package player;
 
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import clueGame.Solution;
+
+import card.Card;
 
 
 public abstract class Player {

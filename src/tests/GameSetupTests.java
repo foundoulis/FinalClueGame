@@ -11,13 +11,14 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.BadConfigFormatException;
+import player.ComputerPlayer;
+import player.HumanPlayer;
+import player.Player;
+
+import card.Card;
+import card.CardType;
 import clueGame.Board;
-import clueGame.Card;
-import clueGame.CardType;
-import clueGame.ComputerPlayer;
-import clueGame.HumanPlayer;
-import clueGame.Player;
+import exceptions.BadConfigFormatException;
 
 public class GameSetupTests {
 	private static Board board;
