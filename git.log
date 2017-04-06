@@ -1,0 +1,66 @@
+* [31m430da3d[m -[33m (HEAD -> master)[m Added clarification comments to setConfigFiles overload. [32m(2 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31m14a84b6[m -[33m[m Fixed infinte loop error due to weird function call and no weapon config [32m(29 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31m10637c1[m -[33m[m Renamed Config File variables to enhance clarity. [32m(51 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31m7a7f531[m -[33m[m Moved .java files into more appropriate packages. [32m(57 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31mfac3e7b[m -[33m (origin/master)[m prepping for github [32m(28 hours ago) [1;34m<tylerdoll>[m
+* [31md6d56f1[m -[33m[m Fixed CR tests [32m(28 hours ago) [1;34m<Tyler Doll>[m
+* [31m4251eb8[m -[33m[m Added weapon and people import functions and configs [32m(29 hours ago) [1;34m<Tyler Doll>[m
+* [31ma44ab52[m -[33m[m Added GUI [32m(13 days ago) [1;34m<Tomek Prussak>[m
+* [31m0832ce1[m -[33m[m Removed unused imports [32m(13 days ago) [1;34m<Tomek Prussak>[m
+* [31m22a6957[m -[33m[m Pushing yesterday's changes [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* [31mcd2b827[m -[33m[m Finished gameActionTests [32m(2 weeks ago) [1;34m<Tyler Doll>[m
+* [31m9516cdb[m -[33m[m Added Computer Select Failing Tests... and Wrote pick locatio [32m(2 weeks ago) [1;34m<Noah Finch>[m
+*   [31m68bd717[m -[33m[m Merged Tomek and I's code [32m(2 weeks ago) [1;34m<tylerdoll>[m
+|\  
+| * [31m463270c[m -[33m[m testHandleSugestion now passes [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * [31m29ee351[m -[33m[m Added tests for handleSuggestion [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * [31m5f143ee[m -[33m[m Added toString for Card and Player [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| *   [31m6e942dc[m -[33m[m Merged CheckAccusation [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| |\  
+| * | [31m22b539f[m -[33m[m Switch game setup tests to use a fake random [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * | [31m322fa7c[m -[33m[m Added fake random [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * | [31m041b315[m -[33m[m Disprove suggestion now passes [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * | [31md307a2e[m -[33m[m Finished disproveSuggestions tests [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * | [31md3c70ea[m -[33m[m Merged new solution and CheckAccusation tests [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+| * | [31mf93288d[m -[33m[m Added setup tests [32m(2 weeks ago) [1;34m<Tomek Prussak>[m
+* | | [31m7829a41[m -[33m[m added GameSetupTests to commit [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* | | [31m38fd530[m -[33m[m createSuggestion passes [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* | | [31m75de711[m -[33m[m Setup create suggestion test [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* | | [31m4b1d815[m -[33m[m Fixed last test, now tests 3 fail cases [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* | | [31me148ef4[m -[33m[m Made testCheckAccusation pass [32m(2 weeks ago) [1;34m<tylerdoll>[m
+| |/  
+|/|   
+* | [31mdffd313[m -[33m[m Added constructor for Solution [32m(2 weeks ago) [1;34m<tylerdoll>[m
+* | [31mc7248c5[m -[33m[m Wrote failing test for checkAccusation [32m(2 weeks ago) [1;34m<tylerdoll>[m
+|/  
+* [31m7b12785[m -[33m[m All tests pass [32m(3 weeks ago) [1;34m<tylerdoll>[m
+* [31m611e60b[m -[33m[m Added failing test for dealTheCards [32m(3 weeks ago) [1;34m<tylerdoll>[m
+* [31m65d06ec[m -[33m[m Made loadTheDeck pass, also fixed issue causing loadThePeople to fail [32m(3 weeks ago) [1;34m<tylerdoll>[m
+* [31m78263a2[m -[33m[m Wrote failing test for loadDeck [32m(3 weeks ago) [1;34m<tylerdoll>[m
+* [31m1898c56[m -[33m[m Changed player loading to be more like board and legend loading [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31mdfdf2e5[m -[33m[m Loading people now passes [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31mac9a486[m -[33m[m Added project files to the git [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31mfa13fee[m -[33m[m Removed some random temporary files [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31mb67a81a[m -[33m[m Finished player loading tests [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31m590dc65[m -[33m[m Refactored initialize some more and removed console outputs. [32m(3 weeks ago) [1;34m<Tomasz Prussak>[m
+* [31m1985f4b[m -[33m[m added player config [32m(3 weeks ago) [1;34m<Tyler Doll>[m
+* [31m17bd5db[m -[33m[m added outline for tests [32m(3 weeks ago) [1;34m<Tyler Doll>[m
+* [31m6935b8f[m -[33m[m added new player related classes, cleaned up board init function [32m(3 weeks ago) [1;34m<Tyler Doll>[m
+* [31m8a40c56[m -[33m[m Fixed warnings and cleaned up some. [32m(3 weeks ago) [1;34m<Tyler Doll>[m
+* [31m53e9bd2[m -[33m[m just finished targets test passing [32m(4 weeks ago) [1;34m<Ian Cairns>[m
+* [31md60cdf9[m -[33m[m just finished adjacencyTest CR [32m(4 weeks ago) [1;34m<Ian Cairns>[m
+* [31m3bb4647[m -[33m[m just finished failing tests [32m(4 weeks ago) [1;34m<Ian Cairns>[m
+* [31m6c566cb[m -[33m[m new tests [32m(4 weeks ago) [1;34m<Jordan King>[m
+* [31m64ca2d1[m -[33m[m Formatted all code [32m(5 weeks ago) [1;34m<Jordan King>[m
+* [31m7729c9e[m -[33m[m Added excel layout spreadsheet and finished tests for testAdjacenciesWithinRoom method [32m(5 weeks ago) [1;34m<Jordan King>[m
+* [31m510f506[m -[33m[m Started board adj tests [32m(5 weeks ago) [1;34m<Jordan King>[m
+* [31m77a2075[m -[33m[m Hello Jordan [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31m6dec640[m -[33m[m added our CSV and text [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31m44da5d5[m -[33m[m All tests Pass [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31mf9e49b6[m -[33m[m All CR tests Pass [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31md98cd0a[m -[33m[m Csv Files added [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31m00a5411[m -[33m[m Comments Added [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31md95d02d[m -[33m[m testTargets pass [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31m9f7e5f7[m -[33m[m testAdjacency pass [32m(5 weeks ago) [1;34m<Ian Cairns>[m
+* [31m56a980c[m -[33m[m BoardCell constructor removed [32m(6 weeks ago) [1;34m<Ian Cairns>[m
+* [31m32b7b69[m -[33m[m Initial commit with tests that compile [32m(6 weeks ago) [1;34m<Ian Cairns>[m
