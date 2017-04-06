@@ -101,6 +101,7 @@ public class ControlGUI extends JPanel {
 		myCardsPanel.setBorder(new TitledBorder(new EtchedBorder(), "My Cards"));
 
 		// TODO: have this happen on the board class instead of combining them in the first place
+		// Split cards into lists by type.
 		ArrayList<Card> weaponCards = new ArrayList<Card>();
 		ArrayList<Card> personCards = new ArrayList<Card>();
 		ArrayList<Card> roomCards = new ArrayList<Card>();
@@ -117,9 +118,9 @@ public class ControlGUI extends JPanel {
 				break;
 			}
 		}
-		myCardsPanel.add(new CardPanel("Weapon", weaponCards));
+		myCardsPanel.add(new CardPanel("Weapons", weaponCards));
 		myCardsPanel.add(new CardPanel("People", personCards));
-		myCardsPanel.add(new CardPanel("Room", roomCards));
+		myCardsPanel.add(new CardPanel("Rooms", roomCards));
 		
 		return myCardsPanel;
 	}
