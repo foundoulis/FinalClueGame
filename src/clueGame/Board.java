@@ -24,6 +24,7 @@ import card.Card;
 import card.CardType;
 import exceptions.BadConfigFormatException;
 
+@SuppressWarnings("serial")
 public class Board extends JPanel {
 
 	// variable used for singleton pattern

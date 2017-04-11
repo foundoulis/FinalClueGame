@@ -1,6 +1,5 @@
 package swinggui;
 
-import java.awt.LayoutManager;
 import java.util.List;
 
 import javax.swing.JPanel;

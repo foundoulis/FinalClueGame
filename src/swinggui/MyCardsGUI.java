@@ -1,15 +1,12 @@
 package swinggui;
 
-import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import clueGame.Board;
 import player.HumanPlayer;
-import card.Card;
+import clueGame.Board;
 
 @SuppressWarnings("serial")
 public class MyCardsGUI extends JPanel {
