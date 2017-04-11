@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import player.HumanPlayer;
+import swinggui.BoardGUI;
 import swinggui.ControlGUI;
 import swinggui.DetectiveNotesGUI;
 import swinggui.MyCardsGUI;
@@ -23,7 +24,7 @@ public class ClueGame extends JFrame {
 	public ClueGame() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
-		setSize(600, 200);
+		setSize(1200, 800);
 
 		// Create menu
 		detectiveNotes = new DetectiveNotesGUI();
@@ -32,6 +33,7 @@ public class ClueGame extends JFrame {
 		// Create GUI
 		add(new ControlGUI(), BorderLayout.SOUTH);
 		add(new MyCardsGUI(humanPlayer), BorderLayout.EAST);
+		add(new BoardGUI(board), BorderLayout.CENTER);
 	}
 	
 	private JMenuBar createMenu() {
