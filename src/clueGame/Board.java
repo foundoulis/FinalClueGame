@@ -15,15 +15,16 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
-
 import card.Card;
 import card.CardType;
 import exceptions.BadConfigFormatException;
 
-public class Board {
+public class Board extends JPanel {
 
 	// variable used for singleton pattern
 	private static Board theInstance;
@@ -311,26 +312,6 @@ public class Board {
 		in.close();
 	}
 
-	public Map<Character, String> getLegend() {
-		return legendMap;
-	}
-
-	public int getNumRows() {
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		return numCols;
-	}
-
-	public BoardCell getCellAt(int row, int col) {
-		return grid[col][row];
-	}
-
-	public Set<BoardCell> getAdjList(int row, int col) {
-		return adjMap.get(grid[col][row]);
-	}
-
 	public void calcTargets(int row, int col, int pathLen) {
 		targets.clear();
 		visited.clear();
@@ -363,10 +344,6 @@ public class Board {
 
 		}
 
-	}
-
-	public Set<BoardCell> getTargets() {
-		return targets;
 	}
 
 	public void loadPlayerConfig() throws FileNotFoundException {
@@ -419,14 +396,6 @@ public class Board {
 		}
 	}
 
-	public List<Player> getPlayers() {
-		return players;
-	}
-
-	public List<Card> getDeck() {
-		return deck;
-	}
-
 	public boolean checkAccusation(Solution accusation) {
 		return answer.equals(accusation);
 	}
@@ -448,6 +417,47 @@ public class Board {
 			}
 		}
 		return null;
+	}
+	
+	private void paintComponent() {
+		// TODO draw stuff here
+	}
+	
+	
+	////////////////////////////////////////////
+	// GETTERS AND SETTERS
+	////////////////////////////////////////////
+
+	public Map<Character, String> getLegend() {
+		return legendMap;
+	}
+
+	public int getNumRows() {
+		return numRows;
+	}
+
+	public int getNumColumns() {
+		return numCols;
+	}
+
+	public BoardCell getCellAt(int row, int col) {
+		return grid[col][row];
+	}
+
+	public Set<BoardCell> getAdjList(int row, int col) {
+		return adjMap.get(grid[col][row]);
+	}
+
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public List<Card> getDeck() {
+		return deck;
 	}
 
 	public Solution getAnswer() {
