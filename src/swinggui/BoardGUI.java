@@ -49,7 +49,7 @@ public class BoardGUI extends JPanel {
 	//For drawing the boxes. 
 	private Component drawBoard() {
 		JPanel panelGrid = new JPanel();
-		panelGrid.setLayout(new GridLayout(this.width,0));
+		panelGrid.setLayout(new GridLayout(this.height,0));
 		
 		for (List<BoxGUI> list: boxes) {
 			for (BoxGUI box: list) {
@@ -92,10 +92,10 @@ public class BoardGUI extends JPanel {
 
 	public void convertBoard(Board b) {
 		boxes = new ArrayList<List<BoxGUI>>();
-		for (int i = 0; i < b.getNumColumns(); i++) {
+		for (int i = 0; i < b.getNumRows(); i++) {
 			List<BoxGUI> tmp = new ArrayList<BoxGUI>();
-			for (int j = 0; j < b.getNumRows(); j++) {
-				tmp.add(new BoxGUI(b.getCellAt(j, i))); // j and i are backwards because rader.
+			for (int j = 0; j < b.getNumColumns(); j++) {
+				tmp.add(new BoxGUI(b.getCellAt(i, j))); // j and i are backwards because rader.
 			}
 			boxes.add(tmp);
 		}

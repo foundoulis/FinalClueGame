@@ -31,10 +31,10 @@ public class BoxGUI {
 		if (b.isDoorway()) {
 			this.color = Color.WHITE;
 			switch (b.getDoorDirection()) {
-			case UP: door = "U"; break;
-			case DOWN: door = "D"; break;
-			case LEFT: door = "L"; break;
-			case RIGHT: door = "R"; break;
+			case UP: door = "^"; break;
+			case DOWN: door = "\\/"; break;
+			case LEFT: door = "<"; break;
+			case RIGHT: door = ">"; break;
 			default:
 				door = "!";
 				break;
