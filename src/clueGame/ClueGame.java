@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -42,11 +44,25 @@ public class ClueGame extends JFrame {
 		JMenu fileMenu = new JMenu("File");
 		
 		JMenuItem fileItem = new JMenuItem("Detective Notes");
-		fileItem.addActionListener(e -> detectiveNotes.setVisible(true));
+		fileItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				detectiveNotes.setVisible(true);
+			}
+			
+		});
 		fileMenu.add(fileItem);
 		
 		JMenuItem exitItem = new JMenuItem("Exit");
-		exitItem.addActionListener(e -> System.exit(0));
+		exitItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+			
+		});
 		fileMenu.add(exitItem);
 		
 		menuBar.add(fileMenu);	
