@@ -1,0 +1,23 @@
+We added the following two functions to our code from the other partners project allowing us to import arbitrary decks of cards and weapons for the game. They use one line, loopless file reads to import and I think they are pretty cool.
+
+	public void loadWeaponConfig() {
+		try {
+			List<String> weaponsList = Files.readAllLines(Paths.get(this.weaponConfigFile));
+			for (String s : weaponsList) {
+				deck.add(new Card(CardType.WEAPON, s));
+			}
+		} catch (IOException e) {
+			System.out.println("There is no weapon config file by that name");
+		}
+	}
+
+	public void loadPeopleConfig() {
+		try {
+			List<String> peopleList = Files.readAllLines(Paths.get(this.peopleConfigFile));
+			for (String s : peopleList) {
+				deck.add(new Card(CardType.PERSON, s));
+			}
+		} catch (IOException e) {
+			System.out.println("There is no people config file by that name.");
+		}
+	}

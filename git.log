@@ -1,6 +1,7 @@
-* [31m430da3d[m -[33m (HEAD -> master)[m Added clarification comments to setConfigFiles overload. [32m(2 minutes ago) [1;34m<Derek Foundoulis>[m
-* [31m14a84b6[m -[33m[m Fixed infinte loop error due to weird function call and no weapon config [32m(29 minutes ago) [1;34m<Derek Foundoulis>[m
-* [31m10637c1[m -[33m[m Renamed Config File variables to enhance clarity. [32m(51 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31mb947e1c[m -[33m (HEAD -> master)[m Abstracted deck to new class. [32m(5 seconds ago) [1;34m<Derek Foundoulis>[m
+* [31m430da3d[m -[33m[m Added clarification comments to setConfigFiles overload. [32m(3 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31m14a84b6[m -[33m[m Fixed infinte loop error due to weird function call and no weapon config [32m(30 minutes ago) [1;34m<Derek Foundoulis>[m
+* [31m10637c1[m -[33m[m Renamed Config File variables to enhance clarity. [32m(52 minutes ago) [1;34m<Derek Foundoulis>[m
 * [31m7a7f531[m -[33m[m Moved .java files into more appropriate packages. [32m(57 minutes ago) [1;34m<Derek Foundoulis>[m
 * [31mfac3e7b[m -[33m (origin/master)[m prepping for github [32m(28 hours ago) [1;34m<tylerdoll>[m
 * [31md6d56f1[m -[33m[m Fixed CR tests [32m(28 hours ago) [1;34m<Tyler Doll>[m
