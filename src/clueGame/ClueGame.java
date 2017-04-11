@@ -25,7 +25,7 @@ public class ClueGame extends JFrame {
 
 	public ClueGame() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Clue");
+		setTitle("Clue Game");
 		setSize(1200, 800);
 
 		// Create menu

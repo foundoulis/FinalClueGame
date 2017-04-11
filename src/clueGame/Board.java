@@ -501,4 +501,8 @@ public class Board extends JPanel {
 	public List<Card> getWeaponCards() {
 		return weaponCards;
 	}
+
+	public BoardCell[][] getBoardCells() {
+		return this.grid;
+	}
 }
