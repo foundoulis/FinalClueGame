@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import player.HumanPlayer;
+import swinggui.BoardGUI;
 import swinggui.ControlGUI;
 import swinggui.MyCardsGUI;
 
@@ -19,10 +20,11 @@ public class ClueGame extends JFrame {
 	public ClueGame() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
-		setSize(600, 200);
+		setSize(1200, 800);
 
 		add(new ControlGUI(), BorderLayout.SOUTH);
 		add(new MyCardsGUI(humanPlayer), BorderLayout.EAST);
+		add(new BoardGUI(board), BorderLayout.CENTER);
 	}
 
 	public static void main(String[] args) {
