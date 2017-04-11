@@ -44,6 +44,9 @@ public class Board extends JPanel {
 	private List<Player> players;
 	private HumanPlayer humanPlayer;
 	private List<Card> deck;
+	private List<Card> peopleCards;
+	private List<Card> roomCards;
+	private List<Card> weaponCards;
 	private Solution answer;
 
 	// this method returns the only Board
@@ -102,6 +105,9 @@ public class Board extends JPanel {
 		targets = new HashSet<BoardCell>();
 		adjMap = new HashMap<BoardCell, Set<BoardCell>>();
 		deck = new ArrayList<Card>();
+		peopleCards = new ArrayList<Card>();
+		roomCards = new ArrayList<Card>();
+		weaponCards = new ArrayList<Card>();
 		players = new ArrayList<Player>();
 	}
 
@@ -151,7 +157,9 @@ public class Board extends JPanel {
 			// TODO: this could be done better considering that the legend file
 			// has a way of knowing if a room is a card or not.
 			if (!room.equals("Walkway") && !room.equals("Closet")) {
-				deck.add(new Card(CardType.ROOM, room));
+				Card card = new Card(CardType.ROOM, room);
+				deck.add(card);
+				roomCards.add(card);
 			}
 		}
 	}
@@ -378,7 +386,9 @@ public class Board extends JPanel {
 		try {
 			List<String> weaponsList = Files.readAllLines(Paths.get(this.weaponConfigFile));
 			for (String s : weaponsList) {
-				deck.add(new Card(CardType.WEAPON, s));
+				Card card = new Card(CardType.WEAPON, s);
+				deck.add(card);
+				weaponCards.add(card);
 			}
 		} catch (IOException e) {
 			System.out.println("There is no weapon config file by that name");
@@ -389,7 +399,9 @@ public class Board extends JPanel {
 		try {
 			List<String> peopleList = Files.readAllLines(Paths.get(this.peopleConfigFile));
 			for (String s : peopleList) {
-				deck.add(new Card(CardType.PERSON, s));
+				Card card = new Card(CardType.PERSON, s);
+				deck.add(card);
+				peopleCards.add(card);
 			}
 		} catch (IOException e) {
 			System.out.println("There is no people config file by that name.");
@@ -475,5 +487,17 @@ public class Board extends JPanel {
 	
 	public HumanPlayer getHumanPlayer() {
 		return humanPlayer;
+	}
+	
+	public List<Card> getPeopleCards() {
+		return peopleCards;
+	}
+	
+	public List<Card> getRoomCards() {
+		return roomCards;
+	}
+	
+	public List<Card> getWeaponCards() {
+		return weaponCards;
 	}
 }
