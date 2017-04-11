@@ -4,25 +4,51 @@ import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import player.HumanPlayer;
 import swinggui.ControlGUI;
+import swinggui.DetectiveNotesGUI;
 import swinggui.MyCardsGUI;
 
 @SuppressWarnings("serial")
 public class ClueGame extends JFrame {
 	private static Board board;
 	private static HumanPlayer humanPlayer;
-
+	private DetectiveNotesGUI detectiveNotes;
 
 	public ClueGame() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue");
 		setSize(600, 200);
 
+		// Create menu
+		detectiveNotes = new DetectiveNotesGUI();
+		setJMenuBar(createMenu());
+		
+		// Create GUI
 		add(new ControlGUI(), BorderLayout.SOUTH);
 		add(new MyCardsGUI(humanPlayer), BorderLayout.EAST);
+	}
+	
+	private JMenuBar createMenu() {
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu fileMenu = new JMenu("File");
+		
+		JMenuItem fileItem = new JMenuItem("Detective Notes");
+		fileItem.addActionListener(e -> detectiveNotes.setVisible(true));
+		fileMenu.add(fileItem);
+		
+		JMenuItem exitItem = new JMenuItem("Exit");
+		exitItem.addActionListener(e -> System.exit(0));
+		fileMenu.add(exitItem);
+		
+		menuBar.add(fileMenu);	
+		return menuBar;
 	}
 
 	public static void main(String[] args) {
