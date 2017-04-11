@@ -44,6 +44,8 @@ public class Board extends JPanel {
 	private Set<BoardCell> visited;
 	private List<Player> players;
 	private HumanPlayer humanPlayer;
+	private int currentPlayer = -1;
+	private boolean hasSelectedTarget;
 	private List<Card> deck;
 	private List<Card> peopleCards;
 	private List<Card> roomCards;
@@ -504,5 +506,28 @@ public class Board extends JPanel {
 
 	public BoardCell[][] getBoardCells() {
 		return this.grid;
+	}
+
+	public void handleNextPlayerClickEvent() {
+		if (this.currentPlayer == -1) { //To ensure initialization starts at zero
+			this.currentPlayer = 0;
+		}
+		if (players.get(this.currentPlayer) instanceof HumanPlayer) { //player is human
+			if (this.hasSelectedTarget) { // player has moved their piece.
+				this.moveCurrentPlayer();
+			} else { 
+				//prompt error message asking player to move.
+				
+			}
+		} else { // player is computer
+			this.moveCurrentPlayer(); //player needs to move 
+			
+		}
+		this.currentPlayer = (this.currentPlayer + 1) % this.players.size(); // Go to next player
+		return;
+	}
+
+	private void moveCurrentPlayer() {
+		
 	}
 }

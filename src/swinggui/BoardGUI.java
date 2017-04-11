@@ -65,27 +65,21 @@ public class BoardGUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent event) {
 			//get the click location
+			
+			//redraw the board
 			repaint();
 		}
-
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			
+		public void mouseEntered(MouseEvent arg0) {	
 		}
-
 		@Override
-		public void mouseExited(MouseEvent arg0) {
-			
+		public void mouseExited(MouseEvent arg0) {	
 		}
-
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			
+		public void mousePressed(MouseEvent arg0) {	
 		}
-
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			
 		}
 		
 	}
@@ -99,6 +93,7 @@ public class BoardGUI extends JPanel {
 			}
 			boxes.add(tmp);
 		}
+		return;
 	}
 	
 }

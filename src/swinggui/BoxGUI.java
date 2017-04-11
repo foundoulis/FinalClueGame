@@ -52,11 +52,15 @@ public class BoxGUI {
 	}
 
 	public Component toComponent() {
+		
+		
+		
 		JTextField cell = new JTextField();
 		cell.setText(door);
 		cell.setBackground(this.color);	
 		cell.setEditable(false);
 		return cell;
+		//return null;
 	}
 
 }

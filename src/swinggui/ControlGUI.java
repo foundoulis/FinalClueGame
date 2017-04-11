@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import clueGame.Board;
+
 @SuppressWarnings("serial")
 public class ControlGUI extends JPanel {
 	public ControlGUI() {
@@ -78,6 +80,7 @@ public class ControlGUI extends JPanel {
 	private Component createNextPlayer() {
 		JButton next = new JButton();
 		next.setText("Next Player");
+		next.addActionListener(e -> Board.getInstance().handleNextPlayerClickEvent());
 		return next;
 	}
 }
