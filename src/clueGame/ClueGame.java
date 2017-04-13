@@ -22,8 +22,19 @@ public class ClueGame extends JFrame {
 	private static Board board;
 	private static HumanPlayer humanPlayer;
 	private DetectiveNotesGUI detectiveNotes;
+	private static ClueGame cg;
+	private ControlGUI controlGui;
 
-	public ClueGame() throws HeadlessException {
+	public static ClueGame getInstance() {
+		if (cg == null) {
+			cg = new ClueGame();
+			return cg;
+		} else {
+			return cg;
+		}
+	}
+	
+	private ClueGame() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
 		setSize(1200, 800);
@@ -33,7 +44,8 @@ public class ClueGame extends JFrame {
 		setJMenuBar(createMenu());
 		
 		// Create GUI
-		add(new ControlGUI(), BorderLayout.SOUTH);
+		this.controlGui = new ControlGUI();
+		add(this.controlGui, BorderLayout.SOUTH);
 		add(new MyCardsGUI(humanPlayer), BorderLayout.EAST);
 		add(new BoardGUI(board), BorderLayout.CENTER);
 	}
@@ -85,6 +97,10 @@ public class ClueGame extends JFrame {
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		JOptionPane.showMessageDialog(game, "You are " + humanPlayer.getName() + ", press Next Player to begin play");
+	}
+
+	public void updateWhoseTurn() {
+		this.controlGui.setWhoseTurnText(board.getCurrentPlayer().getName());
 	}
 
 }

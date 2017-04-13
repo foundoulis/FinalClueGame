@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import player.ComputerPlayer;
@@ -44,13 +45,16 @@ public class Board extends JPanel {
 	private Set<BoardCell> visited;
 	private List<Player> players;
 	private HumanPlayer humanPlayer;
-	private int currentPlayer = -1;
+	private int currentPlayerIndex = -1;
 	private boolean hasSelectedTarget;
 	private List<Card> deck;
 	private List<Card> peopleCards;
 	private List<Card> roomCards;
 	private List<Card> weaponCards;
 	private Solution answer;
+	
+	private Random rand;
+	private int diceRoll;
 
 	// this method returns the only Board
 	public static Board getInstance() {
@@ -79,6 +83,7 @@ public class Board extends JPanel {
 
 	public void initialize() {
 		reset();
+		this.rand.setSeed(System.currentTimeMillis());
 
 		try {
 			loadRoomConfig();
@@ -509,25 +514,48 @@ public class Board extends JPanel {
 	}
 
 	public void handleNextPlayerClickEvent() {
-		if (this.currentPlayer == -1) { //To ensure initialization starts at zero
-			this.currentPlayer = 0;
+		// Update current player
+		if (this.currentPlayerIndex == -1) { //To ensure initialization starts at zero
+			this.currentPlayerIndex = 0;
+		} else {
+			this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size(); // Go to next player
 		}
-		if (players.get(this.currentPlayer) instanceof HumanPlayer) { //player is human
-			if (this.hasSelectedTarget) { // player has moved their piece.
-				this.moveCurrentPlayer();
-			} else { 
-				//prompt error message asking player to move.
-				
-			}
-		} else { // player is computer
-			this.moveCurrentPlayer(); //player needs to move 
-			
+		ClueGame.getInstance().updateWhoseTurn();
+		
+		this.diceRoll = this.rand.nextInt() % 6;
+		// TODO update dice roll display
+		this.calcTargets(
+				this.getCurrentPlayer().getRow(),
+				this.getCurrentPlayer().getColumn(),
+				this.diceRoll);
+		
+		boolean isHuman = this.getCurrentPlayer() instanceof HumanPlayer;
+		if (isHuman) {
+			// TODO show targets on board
+		} else {
+			// TODO move computer player
 		}
-		this.currentPlayer = (this.currentPlayer + 1) % this.players.size(); // Go to next player
-		return;
+		
+//		if (players.get(this.currentPlayerIndex) instanceof HumanPlayer) { //player is human
+//			if (this.hasSelectedTarget) { // player has moved their piece.
+//				this.moveCurrentPlayer();
+//			} else { 
+//				//prompt error message asking player to move.
+//				JOptionPane.showMessageDialog(this, "You are " + this.getHumanPlayer().getName() + ", and have not completed your turn.");
+//				return;
+//			}
+//		} else { // player is computer
+//			this.moveCurrentPlayer(); //player needs to move 
+//			// wait for next player to be hit.
+//		}
+	}
+
+	public Player getCurrentPlayer() {
+		return this.players.get(currentPlayerIndex);
 	}
 
 	private void moveCurrentPlayer() {
+		// determine is player is human or not. 
 		
 	}
 }
