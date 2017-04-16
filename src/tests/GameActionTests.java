@@ -153,7 +153,7 @@ public class GameActionTests {
 		for (Player player : players) {
 			if (player instanceof ComputerPlayer) {
 				// Set room to Master bedroom
-				player.setRoom(2, 4);
+				player.setLocation(2, 4);
 				List<Card> cards = new ArrayList<Card>();
 
 				// Test with one of each card types

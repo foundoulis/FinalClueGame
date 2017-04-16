@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import swinggui.WhoseTurn;
 import card.Card;
 import card.CardType;
 import exceptions.BadConfigFormatException;
@@ -36,7 +37,7 @@ public class Board extends JPanel {
 	private String playersConfigFile;
 	private String weaponConfigFile;
 	private String peopleConfigFile;
-	private final int MAX_BOAR_SIZE = 50;
+	private final int MAX_BOARD_SIZE = 50;
 	private BoardCell[][] grid;
 	private int numRows, numCols;
 	private Map<Character, String> legendMap;
@@ -46,7 +47,7 @@ public class Board extends JPanel {
 	private List<Player> players;
 	private HumanPlayer humanPlayer;
 	private int currentPlayerIndex = -1;
-	private boolean hasSelectedTarget;
+	private boolean waitingForHumanToSelectTarget = false;
 	private List<Card> deck;
 	private List<Card> peopleCards;
 	private List<Card> roomCards;
@@ -83,7 +84,7 @@ public class Board extends JPanel {
 
 	public void initialize() {
 		reset();
-		this.rand.setSeed(System.currentTimeMillis());
+		rand.setSeed(System.currentTimeMillis());
 
 		try {
 			loadRoomConfig();
@@ -117,6 +118,7 @@ public class Board extends JPanel {
 		roomCards = new ArrayList<Card>();
 		weaponCards = new ArrayList<Card>();
 		players = new ArrayList<Player>();
+		rand = new Random();
 	}
 
 	public void dealDeck(Random rand) {
@@ -277,7 +279,7 @@ public class Board extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		grid = new BoardCell[MAX_BOAR_SIZE][MAX_BOAR_SIZE];
+		grid = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
 		Scanner in = new Scanner(reader);
 		numRows = 0;
 		String line = "";
@@ -348,8 +350,7 @@ public class Board extends JPanel {
 			// Do something with object if it was not a past position
 			if (!didVisit) {
 				if (pathLength < 2 || option.isDoorway()) {
-					targets.add(option); // add if it number of steps has been
-					// met.
+					targets.add(option); // add if it number of steps has been met.
 				} else {
 					// keep going along path if still have more steps
 					visited.add(currentCell);
@@ -513,49 +514,49 @@ public class Board extends JPanel {
 		return this.grid;
 	}
 
-	public void handleNextPlayerClickEvent() {
-		// Update current player
-		if (this.currentPlayerIndex == -1) { //To ensure initialization starts at zero
-			this.currentPlayerIndex = 0;
-		} else {
-			this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size(); // Go to next player
-		}
-		ClueGame.getInstance().updateWhoseTurn();
-		
-		this.diceRoll = this.rand.nextInt() % 6;
-		// TODO update dice roll display
-		this.calcTargets(
-				this.getCurrentPlayer().getRow(),
-				this.getCurrentPlayer().getColumn(),
-				this.diceRoll);
-		
-		boolean isHuman = this.getCurrentPlayer() instanceof HumanPlayer;
-		if (isHuman) {
-			// TODO show targets on board
-		} else {
-			// TODO move computer player
-		}
-		
-//		if (players.get(this.currentPlayerIndex) instanceof HumanPlayer) { //player is human
-//			if (this.hasSelectedTarget) { // player has moved their piece.
-//				this.moveCurrentPlayer();
-//			} else { 
-//				//prompt error message asking player to move.
-//				JOptionPane.showMessageDialog(this, "You are " + this.getHumanPlayer().getName() + ", and have not completed your turn.");
-//				return;
-//			}
-//		} else { // player is computer
-//			this.moveCurrentPlayer(); //player needs to move 
-//			// wait for next player to be hit.
-//		}
-	}
-
 	public Player getCurrentPlayer() {
 		return this.players.get(currentPlayerIndex);
 	}
+	
+	/////////
+	// EVENTS
+	/////////
 
-	private void moveCurrentPlayer() {
-		// determine is player is human or not. 
+	public void handleNextPlayerClickEvent() {
+		if (waitingForHumanToSelectTarget) {
+			JOptionPane.showMessageDialog(this, "You must finish your turn before you can go to the next player");
+			return;
+		} else {
+			this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size(); // Go to next player
+		}
+
+		Player currentPlayer = getCurrentPlayer();
 		
+		// TODO this doesn't update the GUI
+		System.out.println(currentPlayer.getName());
+		WhoseTurn.update(currentPlayer.getName());
+		
+		this.diceRoll = this.rand.nextInt(5) + 1;
+		// TODO update dice roll display
+		
+		this.calcTargets(
+				currentPlayer.getRow(),
+				currentPlayer.getColumn(),
+				this.diceRoll);
+		
+		System.out.println("targets len " + targets.size());
+		
+		ClueGame cg = ClueGame.getInstance();
+		boolean isHuman = this.getCurrentPlayer() instanceof HumanPlayer;
+		if (isHuman) {
+			waitingForHumanToSelectTarget = true;
+			cg.setPaintTargets(true);
+		} else {
+			cg.setPaintTargets(false);
+			BoardCell target = ((ComputerPlayer) currentPlayer).pickLocation(targets);
+			currentPlayer.moveToTarget(target);
+		}
+		
+		ClueGame.getInstance().repaint();
 	}
 }

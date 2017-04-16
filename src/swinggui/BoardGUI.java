@@ -3,6 +3,7 @@ package swinggui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import player.Player;
 import clueGame.Board;
 import clueGame.BoardCell;
 
@@ -23,27 +25,44 @@ public class BoardGUI extends JPanel {
 	
 	private int height; 
 	private int width;
-	private int cellWidth = 20;
+	private final int CELL_SIZE = 20;
+	private final int CELL_MARGIN = 2;
+	private Board board;
 	
 	private List<List<BoxGUI>> boxes;
+	public boolean paintTargets = false;
 
 	public BoardGUI(Board b) {
-		this.height = b.getNumRows();
-		this.width = b.getNumColumns();
+		this.board = b;
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		setBorder(new TitledBorder(new EtchedBorder(), "Board"));
-		
 		convertBoard(b);
-		
-		add(drawBoard());
 	}
 	
-	//For drawing the players.
+	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	   super.paintComponent(g);
+
+		// Draw cells
+		for (List<BoxGUI> list: boxes) {
+			for (BoxGUI box: list) {
+				box.draw(g, CELL_SIZE, CELL_MARGIN);
+			}
+		}
 		
+		// Draw targets
+		if (paintTargets) {
+			for (BoardCell target : board.getTargets()) {
+				System.out.println("paint target");
+				BoxGUI box = new BoxGUI(target);
+				box.draw(g, CELL_SIZE, CELL_MARGIN, true);
+			}
+		}
 		
+		// Draw players
+		for(Player player : board.getPlayers()) {
+			(new PlayerDot(player)).draw(g, CELL_SIZE, CELL_MARGIN);
+		}
 	}
 
 	//For drawing the boxes. 
@@ -51,6 +70,7 @@ public class BoardGUI extends JPanel {
 		JPanel panelGrid = new JPanel();
 		panelGrid.setLayout(new GridLayout(this.height,0));
 		
+		// Draw cells
 		for (List<BoxGUI> list: boxes) {
 			for (BoxGUI box: list) {
 				panelGrid.add(box.toComponent());
@@ -93,7 +113,6 @@ public class BoardGUI extends JPanel {
 			}
 			boxes.add(tmp);
 		}
-		return;
 	}
 	
 }

@@ -2,6 +2,7 @@ package swinggui;
 
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -14,6 +15,7 @@ public class CardPanel extends JPanel {
 
 	public CardPanel(String title, List<Card> cards) {
 		setBorder(new TitledBorder(new EtchedBorder(), title));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		for (Card c : cards) {
 			JTextField cardNameFld = new JTextField(20);
 			cardNameFld.setEditable(false);

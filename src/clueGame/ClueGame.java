@@ -23,15 +23,13 @@ public class ClueGame extends JFrame {
 	private static HumanPlayer humanPlayer;
 	private DetectiveNotesGUI detectiveNotes;
 	private static ClueGame cg;
+	private BoardGUI boardGui;
 	private ControlGUI controlGui;
 
 	public static ClueGame getInstance() {
-		if (cg == null) {
+		if (cg == null)
 			cg = new ClueGame();
-			return cg;
-		} else {
-			return cg;
-		}
+		return cg;
 	}
 	
 	private ClueGame() throws HeadlessException {
@@ -45,9 +43,11 @@ public class ClueGame extends JFrame {
 		
 		// Create GUI
 		this.controlGui = new ControlGUI();
+		this.boardGui = new BoardGUI(board);
+		
 		add(this.controlGui, BorderLayout.SOUTH);
 		add(new MyCardsGUI(humanPlayer), BorderLayout.EAST);
-		add(new BoardGUI(board), BorderLayout.CENTER);
+		add(this.boardGui, BorderLayout.CENTER);
 	}
 	
 	private JMenuBar createMenu() {
@@ -94,13 +94,13 @@ public class ClueGame extends JFrame {
 		humanPlayer = board.getHumanPlayer();
 
 		// Display game
-		ClueGame game = new ClueGame();
+		ClueGame game = ClueGame.getInstance();
 		game.setVisible(true);
 		JOptionPane.showMessageDialog(game, "You are " + humanPlayer.getName() + ", press Next Player to begin play");
 	}
 
-	public void updateWhoseTurn() {
-		this.controlGui.setWhoseTurnText(board.getCurrentPlayer().getName());
+	public void setPaintTargets(boolean b) {
+		boardGui.paintTargets = b;
 	}
 
 }

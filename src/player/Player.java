@@ -5,8 +5,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import clueGame.BoardCell;
 import clueGame.Solution;
-
 import card.Card;
 
 
@@ -57,9 +57,13 @@ public abstract class Player {
 		return col;
 	}
 	
-	public void setRoom(int r, int c) {
+	public void setLocation(int r, int c) {
 		row = r;
 		col = c;
+	}
+	
+	public void moveToTarget(BoardCell target) {
+		setLocation(target.getRow(), target.getColumn());
 	}
 
 	public Color getColor() {
