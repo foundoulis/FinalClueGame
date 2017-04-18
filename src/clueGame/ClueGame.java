@@ -42,7 +42,7 @@ public class ClueGame extends JFrame {
 		setJMenuBar(createMenu());
 		
 		// Create GUI
-		this.controlGui = new ControlGUI();
+		this.controlGui = ControlGUI.getInstance();
 		this.boardGui = new BoardGUI(board);
 		
 		add(this.controlGui, BorderLayout.SOUTH);

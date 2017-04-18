@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -31,12 +32,15 @@ public class BoardGUI extends JPanel {
 	
 	private List<List<BoxGUI>> boxes;
 	public boolean paintTargets = false;
-
+	
+	private Point lastClickLocation;
+	
 	public BoardGUI(Board b) {
 		this.board = b;
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		convertBoard(b);
+		addMouseListener(new GridListener());
 	}
 	
 	@Override
@@ -85,7 +89,8 @@ public class BoardGUI extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent event) {
 			//get the click location
-			
+			lastClickLocation = event.getPoint();
+			System.out.println(lastClickLocation.toString());
 			//redraw the board
 			repaint();
 		}
@@ -102,6 +107,10 @@ public class BoardGUI extends JPanel {
 		public void mouseReleased(MouseEvent arg0) {
 		}
 		
+	}
+	
+	public Point getLastClickLocation() {
+		return lastClickLocation;
 	}
 
 	public void convertBoard(Board b) {

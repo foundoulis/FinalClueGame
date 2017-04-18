@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import swinggui.ControlGUI;
 import swinggui.WhoseTurn;
 import card.Card;
 import card.CardType;
@@ -529,15 +530,18 @@ public class Board extends JPanel {
 		} else {
 			this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size(); // Go to next player
 		}
+		
+		//this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.size();
 
 		Player currentPlayer = getCurrentPlayer();
 		
 		// TODO this doesn't update the GUI
-		System.out.println(currentPlayer.getName());
+		//System.out.println(currentPlayer.getName());
 		WhoseTurn.update(currentPlayer.getName());
+		ControlGUI.getInstance().UpdatePlayerTurn(currentPlayer.getName());
 		
-		this.diceRoll = this.rand.nextInt(5) + 1;
-		// TODO update dice roll display
+		this.diceRoll = this.rand.nextInt(5) + 1 + this.rand.nextInt(5) + 1;
+		ControlGUI.getInstance().UpdateDiceRoll(this.diceRoll);
 		
 		this.calcTargets(
 				currentPlayer.getRow(),
