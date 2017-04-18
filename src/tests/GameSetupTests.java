@@ -75,15 +75,15 @@ public class GameSetupTests {
 		assertEquals("Brad Pitt", players.get(2).getName());
 
 		// Test some colors
-		assertEquals(Color.GREEN, players.get(0).getColor());
+		assertEquals(Color.YELLOW, players.get(0).getColor());
 		assertEquals(Color.BLUE, players.get(2).getColor());
 
 		// Test some positions
 		assertEquals(0, players.get(0).getRow());
-		assertEquals(1, players.get(0).getColumn());
+		assertEquals(8, players.get(0).getColumn());
 
-		assertEquals(5, players.get(2).getRow());
-		assertEquals(20, players.get(2).getColumn());
+		assertEquals(20, players.get(2).getRow());
+		assertEquals(5, players.get(2).getColumn());
 
 		// Test people are computers or people
 		assertTrue(players.get(0) instanceof HumanPlayer);

@@ -10,8 +10,8 @@ public class PlayerDot {
 	private Color color;
 	
 	public PlayerDot(Player player) {
-		this.x = player.getRow();
-		this.y = player.getColumn();
+		this.y = player.getRow();
+		this.x = player.getColumn();
 		this.color = player.getColor();
 	}
 	

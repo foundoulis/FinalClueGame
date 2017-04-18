@@ -3,6 +3,8 @@ package swinggui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 import javax.swing.JTextField;
 
@@ -14,6 +16,7 @@ public class BoxGUI {
 	private int x, y;
 	private String door;
 	private BoardCell boardCell;
+	private int size;
 	
 	public BoxGUI(BoardCell b) {
 		this.x = b.getRow();
@@ -22,6 +25,7 @@ public class BoxGUI {
 	}
 	
 	public void draw(Graphics g, int size, int margin) {
+		this.size = size;
 		draw(g, size, margin, false);
 	}
 	
@@ -38,9 +42,7 @@ public class BoxGUI {
 			g.setColor(Color.GRAY);
 			g.fillRect(x*size, y*size, size, size);
 		}
-		
-		
-		
+
 		if (boardCell.isDoorway()) {
 			g.setColor(Color.MAGENTA);
 			switch (boardCell.getDoorDirection()) {
@@ -61,6 +63,11 @@ public class BoxGUI {
 				break;
 			}
 		}
+	}
+	
+	public boolean containsClick(Point p) {
+		Rectangle rect = new Rectangle(x*size, y*size, size, size);
+		return rect.contains(p);
 	}
 
 	public Component toComponent() {

@@ -1,9 +1,11 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import javax.swing.JPanel;
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import swinggui.BoardGUI;
 import swinggui.ControlGUI;
 import swinggui.WhoseTurn;
 import card.Card;
@@ -334,12 +337,12 @@ public class Board extends JPanel {
 	public void calcTargets(int row, int col, int pathLen) {
 		targets.clear();
 		visited.clear();
-		BoardCell startCell = grid[col][row];
-		calcTargetsRecursion(startCell, pathLen);
+		calcTargetsRecursion(grid[col][row], pathLen);
 	}
 
 	private void calcTargetsRecursion(BoardCell currentCell, int pathLength) {
-		for (BoardCell option : adjMap.get(currentCell)) {
+		Set<BoardCell> adjCells = adjMap.get(currentCell);
+		for (BoardCell option : adjCells) {
 			// Check if the option was a past position
 			boolean didVisit = false;
 			if (!visited.isEmpty()) {
@@ -369,24 +372,23 @@ public class Board extends JPanel {
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
 			String[] split = in.nextLine().split(",");
+			
+			// Get color
 			Color color = null;
-			switch (split[2]) {
-			case "Green":
-				color = Color.GREEN;
-				break;
-			case "Red":
-				color = Color.RED;
-				break;
-			case "Blue":
-				color = Color.BLUE;
-				break;
+			try {
+			    Field field = Class.forName("java.awt.Color").getField(split[2].toLowerCase());
+			    color = (Color)field.get(null);
+			} catch (Exception e) {
+			    color = Color.BLACK; // Not defined
 			}
+
+			int row = Integer.parseInt(split[4]);
+			int col = Integer.parseInt(split[3]);
 			if (split[0].equals("Human")) {
-				humanPlayer = new HumanPlayer(split[1], color, Integer.parseInt(split[3]), Integer.parseInt(split[4]));
+				humanPlayer = new HumanPlayer(split[1], color, row, col);
 				players.add(humanPlayer);
 			} else {
-				players.add(
-						new ComputerPlayer(split[1], color, Integer.parseInt(split[3]), Integer.parseInt(split[4])));
+				players.add(new ComputerPlayer(split[1], color, row, col));
 			}
 		}
 		in.close();
@@ -540,7 +542,7 @@ public class Board extends JPanel {
 		WhoseTurn.update(currentPlayer.getName());
 		ControlGUI.getInstance().UpdatePlayerTurn(currentPlayer.getName());
 		
-		this.diceRoll = this.rand.nextInt(5) + 1 + this.rand.nextInt(5) + 1;
+		this.diceRoll = this.rand.nextInt(4) + 1;
 		ControlGUI.getInstance().UpdateDiceRoll(this.diceRoll);
 		
 		this.calcTargets(
@@ -551,16 +553,27 @@ public class Board extends JPanel {
 		System.out.println("targets len " + targets.size());
 		
 		ClueGame cg = ClueGame.getInstance();
-		boolean isHuman = this.getCurrentPlayer() instanceof HumanPlayer;
+		boolean isHuman = currentPlayer instanceof HumanPlayer;
 		if (isHuman) {
 			waitingForHumanToSelectTarget = true;
 			cg.setPaintTargets(true);
 		} else {
 			cg.setPaintTargets(false);
 			BoardCell target = ((ComputerPlayer) currentPlayer).pickLocation(targets);
+			// Row and column get switched so much that I can't keep track anymore.
+			// For some dumb reason this works.
+			target = getCellAt(target.getRow(), target.getColumn());
 			currentPlayer.moveToTarget(target);
 		}
 		
-		ClueGame.getInstance().repaint();
+		cg.repaint();
+	}
+
+	public void completeHumanTurn(BoardCell target) {
+		ClueGame cg = ClueGame.getInstance();
+		waitingForHumanToSelectTarget = false;
+		getCurrentPlayer().moveToTarget(target);
+		cg.setPaintTargets(false);
+		cg.repaint();
 	}
 }
