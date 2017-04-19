@@ -53,8 +53,7 @@ public class AccuseWindow extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String[] nothingYet = window.getComboBoxesValue();
-			Board.getInstance().setPlayerAccusation(nothingYet);
+			Board.getInstance().setPlayerAccusation(window.getComboBoxesValue());
 			this.window.dispose();
 		}
 	}

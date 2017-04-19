@@ -17,7 +17,9 @@ import card.CardType;
 
 public class ComputerPlayer extends Player {
 	private BoardCell lastRoom;
-	
+	private Solution accusation;
+	private boolean makeAccusationOnNextTurn = false;
+
 	public ComputerPlayer(String name, Color color, int row, int col) {
 		super(name, color, row, col);
 	}
@@ -116,5 +118,18 @@ public class ComputerPlayer extends Player {
 	
 	public void setLastRoom(BoardCell room) {
 		lastRoom = room;
+	}
+	
+	public void setAccusation(Solution accusation) {
+		makeAccusationOnNextTurn = true;
+		this.accusation = accusation;
+	}
+	
+	public boolean isMakeAccusationOnNextTurn() {
+		return makeAccusationOnNextTurn;
+	}
+
+	public Solution getAccusation() {
+		return accusation;
 	}
 }

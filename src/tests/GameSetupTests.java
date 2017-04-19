@@ -70,9 +70,9 @@ public class GameSetupTests {
 		// Test that the other players are loaded in general
 
 		// Test some names
-		assertEquals("John Doe", players.get(0).getName());
-		assertEquals("Jane Doe", players.get(1).getName());
-		assertEquals("Brad Pitt", players.get(2).getName());
+		assertEquals("Mr. Bob", players.get(0).getName());
+		assertEquals("Mrs. Kellie", players.get(1).getName());
+		assertEquals("Mr. Ryan", players.get(2).getName());
 
 		// Test some colors
 		assertEquals(Color.YELLOW, players.get(0).getColor());

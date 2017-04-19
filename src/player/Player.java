@@ -34,6 +34,10 @@ public abstract class Player {
 		myCards.add(card);
 	}
 	
+	public void addSeenCard(Card card) {
+		seenCards.add(card);
+	}
+	
 	public Color convertColor(String strColor) {
 		Color color;
 		try {

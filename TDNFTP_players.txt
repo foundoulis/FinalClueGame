@@ -1,3 +1,3 @@
-Human,John Doe,Yellow,8,0
-Computer,Jane Doe,Red,10,10
-Computer,Brad Pitt,Blue,5,20
+Human,Mr. Bob,Yellow,8,0
+Computer,Mrs. Kellie,Red,10,10
+Computer,Mr. Ryan,Blue,5,20

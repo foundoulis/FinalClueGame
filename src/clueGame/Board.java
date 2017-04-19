@@ -54,6 +54,7 @@ public class Board extends JPanel {
 	private HumanPlayer humanPlayer;
 	private int currentPlayerIndex = -1;
 	private boolean waitingForHumanToSelectTarget = false;
+	private boolean canMakeAccusation = true;
 	private List<Card> deck;
 	private List<Card> peopleCards;
 	private List<Card> roomCards;
@@ -62,6 +63,7 @@ public class Board extends JPanel {
 	
 	private Random rand;
 	private int diceRoll;
+	private boolean imSoDoneWithThisProject = false;
 
 	// this method returns the only Board
 	public static Board getInstance() {
@@ -552,26 +554,62 @@ public class Board extends JPanel {
 				currentPlayer.getColumn(),
 				this.diceRoll);
 		
-		System.out.println("targets len " + targets.size());
-		
 		ClueGame cg = ClueGame.getInstance();
 		boolean isHuman = currentPlayer instanceof HumanPlayer;
 		if (isHuman) {
+			canMakeAccusation = true;
 			waitingForHumanToSelectTarget = true;
 			cg.setPaintTargets(true);
 		} else {
+			if (((ComputerPlayer) currentPlayer).isMakeAccusationOnNextTurn()) {
+				boolean isRight = checkAccusation(((ComputerPlayer) currentPlayer).getAccusation());
+				if (isRight) {
+					JOptionPane.showMessageDialog(this, "You lost! The computer won!");
+					System.exit(0);
+				} else {
+					return;
+				}
+			}
+			
 			cg.setPaintTargets(false);
 			BoardCell target = ((ComputerPlayer) currentPlayer).pickLocation(targets);
 			// Row and column get switched so much that I can't keep track anymore.
 			// For some dumb reason this works.
-			target = getCellAt(target.getRow(), target.getColumn());
-			currentPlayer.moveToTarget(target);
+			BoardCell drawTarget = getCellAt(target.getRow(), target.getColumn());
+			currentPlayer.moveToTarget(drawTarget);
+			
+			if (target.isRoom()) {
+				Solution suggestion = ((ComputerPlayer) currentPlayer).createSuggestion();
+				Card card = handleSuggestion(suggestion, currentPlayer);
+				if (card != null) {
+					currentPlayer.addSeenCard(card);
+				} else {
+					((ComputerPlayer) currentPlayer).setAccusation(suggestion);
+					JOptionPane.showMessageDialog(this, "Computer player will make accusation on next turn.");
+				}
+			}
 		}
 		
 		cg.repaint();
 	}
+	
+	public void completeHumanTurn() {
+		Player currentPlayer = getCurrentPlayer();
+		BoardCell target = getCellAt(currentPlayer.getRow(), currentPlayer.getColumn());
+		// Row and column get switched so much that I can't keep track anymore.
+		// For some dumb reason this works.
+		target = getCellAt(target.getRow(), target.getColumn());
+		completeHumanTurn(target);
+	}
 
 	public void completeHumanTurn(BoardCell target) {
+		BoardCell actualTarget = getCellAt(target.getRow(), target.getColumn());
+		if (actualTarget.isRoom()) {
+			imSoDoneWithThisProject = true;
+			String roomName = legendMap.get(actualTarget.getInitial());
+			new AccuseWindow(this.peopleCards, this.weaponCards, roomName);
+		}
+		
 		ClueGame cg = ClueGame.getInstance();
 		waitingForHumanToSelectTarget = false;
 		getCurrentPlayer().moveToTarget(target);
@@ -582,14 +620,56 @@ public class Board extends JPanel {
 	public void handleAccusationClickEvent() {
 		if (this.currentPlayerIndex != 0) {
 			JOptionPane.showMessageDialog(this, "You may only accuse on your turn.");
+		} else if (!canMakeAccusation) {
+			JOptionPane.showMessageDialog(this, "You may only accuse once during your turn.");
 		} else { // the accusation window
-			AccuseWindow aw = new AccuseWindow(this.peopleCards, this.weaponCards, "current player location");
-			//TODO: change current player location to wherever they are
-			
+			String roomName = getCurrentPlayerRoomName();
+			if (roomName.equalsIgnoreCase("walkway")) {
+				JOptionPane.showMessageDialog(this, "You must be in a room to accuse.");
+			} else {
+				new AccuseWindow(this.peopleCards, this.weaponCards, roomName);
+			}
 		}
 	}
 
 	public void setPlayerAccusation(String [] guesses) {
 		//Run the guess processing, person is 0, weapon is 1, room is whereever they are
+		if (imSoDoneWithThisProject) {
+			imSoDoneWithThisProject = false;
+			Player currentPlayer = getCurrentPlayer();
+			
+			Solution guess = new Solution(guesses[0], getCurrentPlayerRoomName(), guesses[1]);
+			Card card = handleSuggestion(guess, currentPlayer);
+			
+			if (card != null) {
+				currentPlayer.addSeenCard(card);
+			} else {
+				JOptionPane.showMessageDialog(this, "No new clue!");
+				for (Player p : players) {
+					if (p.getName().equalsIgnoreCase(guesses[0])) {
+						BoardCell drawTarget = getCellAt(currentPlayer.getRow(), currentPlayer.getColumn());
+						p.moveToTarget(drawTarget);
+						break;
+					}
+				}
+				completeHumanTurn();
+			}
+		} else {
+			canMakeAccusation = false;
+			Solution guess = new Solution(guesses[0], getCurrentPlayerRoomName(), guesses[1]);
+			if (checkAccusation(guess)) {
+				JOptionPane.showMessageDialog(this, "You won!");
+				System.exit(0);
+			} else {
+				JOptionPane.showMessageDialog(this, "That was not correct!");
+				completeHumanTurn();
+			}
+		}
+	}
+	
+	private String getCurrentPlayerRoomName() {
+		Player currentPlayer = getCurrentPlayer();
+		BoardCell room = getCellAt(currentPlayer.getRow(), currentPlayer.getColumn());
+		return this.legendMap.get(room.getInitial());
 	}
 }
