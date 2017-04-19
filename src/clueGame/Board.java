@@ -17,12 +17,14 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import player.ComputerPlayer;
 import player.HumanPlayer;
 import player.Player;
+import swinggui.AccuseWindow;
 import swinggui.BoardGUI;
 import swinggui.ControlGUI;
 import swinggui.WhoseTurn;
@@ -575,5 +577,19 @@ public class Board extends JPanel {
 		getCurrentPlayer().moveToTarget(target);
 		cg.setPaintTargets(false);
 		cg.repaint();
+	}
+
+	public void handleAccusationClickEvent() {
+		if (this.currentPlayerIndex != 0) {
+			JOptionPane.showMessageDialog(this, "You may only accuse on your turn.");
+		} else { // the accusation window
+			AccuseWindow aw = new AccuseWindow(this.peopleCards, this.weaponCards, "current player location");
+			//TODO: change current player location to wherever they are
+			
+		}
+	}
+
+	public void setPlayerAccusation(String [] guesses) {
+		//Run the guess processing, person is 0, weapon is 1, room is whereever they are
 	}
 }

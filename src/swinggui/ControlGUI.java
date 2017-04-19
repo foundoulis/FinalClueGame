@@ -25,6 +25,8 @@ public class ControlGUI extends JPanel {
 	
 	public JTextField playerTextField;
 	
+	public JButton accusationButton;
+	
 	public static ControlGUI getInstance() {
 		if (theInstance == null) {
 			theInstance = new ControlGUI();
@@ -50,7 +52,7 @@ public class ControlGUI extends JPanel {
 		playerNamePanel.setLayout(new BorderLayout());
 		playerNamePanel.add(new Label("Current Player"), BorderLayout.NORTH);
 		playerNamePanel.add(new Label("Name: "), BorderLayout.WEST);
-		JTextField text = new JTextField("Your turn.");
+		JTextField text = new JTextField("Your turn. Press next player to roll.");
 		text.setEditable(false);
 		playerNamePanel.add(text, BorderLayout.CENTER);
 		
@@ -105,6 +107,7 @@ public class ControlGUI extends JPanel {
 	private Component createMakeAccusation() {
 		JButton accuse = new JButton();
 		accuse.setText("Make an accusation");
+		accuse.addActionListener(e -> Board.getInstance().handleAccusationClickEvent());
 		return accuse;
 	}
 
